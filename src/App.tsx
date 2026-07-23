@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react'
-import { Outlet, useLocation } from 'react-router-dom'
-import Nav from './components/Nav'
+import { Outlet } from 'react-router-dom'
 import LoadingScreen from './components/LoadingScreen'
 import WatercolorFilters from './components/WatercolorFilters'
 import WatercolorWash from './components/WatercolorWash'
@@ -9,13 +8,6 @@ import './App.css'
 
 const SEEN_KEY = 'evie-loader-seen'
 
-function washVariant(path: string) {
-  if (path.startsWith('/about')) return 'about' as const
-  if (path.startsWith('/design')) return 'design' as const
-  if (path.startsWith('/contact')) return 'contact' as const
-  return 'home' as const
-}
-
 export default function App() {
   // Loader plays once per session (not on every route change).
   const [loading, setLoading] = useState(
@@ -23,16 +15,10 @@ export default function App() {
       !sessionStorage.getItem(SEEN_KEY) &&
       !new URLSearchParams(window.location.search).has('noloader'),
   )
-  const location = useLocation()
 
   useEffect(() => {
     if (!loading) sessionStorage.setItem(SEEN_KEY, '1')
   }, [loading])
-
-  // Reset scroll when navigating between pages.
-  useEffect(() => {
-    window.scrollTo(0, 0)
-  }, [location.pathname])
 
   return (
     <>
@@ -40,11 +26,11 @@ export default function App() {
       {loading && <LoadingScreen onDone={() => setLoading(false)} />}
 
       <div className={'app' + (loading ? ' is-hidden' : '')}>
-        {/* full-screen background layer — spans the whole viewport + document
-            height, behind nav/content/footer. Variant follows the route. */}
-        <WatercolorWash key={location.pathname} variant={washVariant(location.pathname)} />
-        <Nav />
-        <main className="page" key={location.pathname}>
+        {/* watercolour-on-paper backdrop the framed painting hangs on */}
+        <WatercolorWash variant="home" />
+        {/* The canvas is the whole site; it stays mounted across zoom so the
+            transform animates continuously. */}
+        <main className="page">
           <Outlet />
         </main>
         <footer className="site-foot">

@@ -52,6 +52,51 @@ export const contact = {
   ],
 }
 
+/* ------------------------------------------------------------
+   Canvas layout — the four areas (About + 3 projects) sit as a
+   2×2 grid of panels on a single canvas, mounted on a 3D easel.
+   Each screen declares only its grid cell (col/row); Canvas.tsx
+   measures each panel's content height and computes the world
+   pixel positions (so the two rows stack cleanly) plus the zoom. */
+export type Screen = {
+  slug: string
+  kind: 'project' | 'about'
+  title: string
+  col: 0 | 1
+  row: 0 | 1
+}
+
+export const screens: Screen[] = [
+  {
+    slug: 'among-the-lotus',
+    kind: 'project',
+    title: 'Among the Lotus and the Light',
+    col: 0,
+    row: 0,
+  },
+  {
+    slug: 'coral-garden',
+    kind: 'project',
+    title: 'Miniature Coral Garden Music Video',
+    col: 1,
+    row: 0,
+  },
+  {
+    slug: 'about',
+    kind: 'about',
+    title: 'About',
+    col: 0,
+    row: 1,
+  },
+  {
+    slug: 'lolita-tea-party',
+    kind: 'project',
+    title: 'Lolita Tea Party Magazine',
+    col: 1,
+    row: 1,
+  },
+]
+
 export const projects: Project[] = [
   {
     slug: 'among-the-lotus',

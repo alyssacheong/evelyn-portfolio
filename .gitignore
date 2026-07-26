@@ -12,6 +12,15 @@ dist
 dist-ssr
 *.local
 
+# Next.js
+.next/
+out/
+next-env.d.ts
+
+# local env files (secrets — never commit)
+.env
+.env*.local
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
@@ -27,3 +36,7 @@ dist-ssr
 Among the Lotus and the Light/
 Lolita-Tea-Party-Magazine/
 Miniature Coral Garden Music Video/
+
+# Raw artwork sources — kept out of git (backups live on Desktop/Downloads)
+WhimsicalFairyPicnic3.png
+mural installation photos/

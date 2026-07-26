@@ -1,0 +1,826 @@
+/* ============================================================
+   Evelyn Tong — Design Portfolio (Next.js)
+   Palette is exactly three colours (spec): plum / blush / magenta.
+   Muted tones are color-mix of those three — no new hues.
+   ============================================================ */
+
+@font-face {
+  font-family: 'Didot';
+  src: url('/fonts/didot.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Acumin Pro';
+  src: url('/fonts/acumin.woff2') format('woff2-variations');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+:root {
+  /* the three fixed colours */
+  --paper: #fff7f5; /* blush off-white — page background */
+  --ink: #2e1f27; /* dark aubergine/plum — nav, text, footer */
+  --accent: #d80e77; /* magenta — links, hovers, sparkle accents, CTAs */
+
+  /* derived (mixes of the three, not new colours) */
+  --ink-muted: color-mix(in srgb, var(--ink) 62%, var(--paper));
+  --hairline: color-mix(in srgb, var(--ink) 16%, transparent);
+
+  --font-title: 'Didot', Georgia, 'Times New Roman', serif;
+  --font-body: 'Acumin Pro', Georgia, 'Times New Roman', serif;
+  --font-mono: 'Courier New', ui-monospace, monospace;
+
+  --nav-h: 4.5rem; /* reserved height of the fixed nav */
+  --pad-x: clamp(1.4rem, 5vw, 4.5rem); /* content inset, both sides */
+
+  color-scheme: light;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-weight: 300;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1,
+h2,
+h3 {
+  font-family: var(--font-title);
+  font-weight: 400;
+  line-height: 1.05;
+  margin: 0;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+.label {
+  font-family: var(--font-mono);
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  font-size: 0.72rem;
+  color: var(--ink-muted);
+}
+
+/* ---- App shell -------------------------------------------- */
+.app-main {
+  /* content sits below the fixed nav */
+  padding-top: var(--nav-h);
+  min-height: 100svh;
+}
+
+/* padded content column — never runs edge to edge */
+.content {
+  padding-left: var(--pad-x);
+  padding-right: var(--pad-x);
+}
+/* home sits in a wider gutter than the rest of the site */
+.content.home {
+  padding-left: clamp(2.5rem, 11vw, 11rem);
+  padding-right: clamp(2.5rem, 11vw, 11rem);
+}
+
+/* ============================================================
+   Global nav (structure only — sparkle treatment comes later)
+   ============================================================ */
+.site-nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 50;
+  height: var(--nav-h);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 var(--pad-x);
+  background: var(--paper);
+  border-bottom: 1px solid var(--hairline);
+}
+.nav-brand {
+  position: relative; /* anchor for the scattered sparkles */
+  font-family: var(--font-space-mono), ui-monospace, monospace;
+  font-size: 1.25rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--accent);
+  white-space: nowrap;
+  overflow: visible;
+}
+.nav-brand-text {
+  position: relative;
+  z-index: 1;
+}
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: clamp(0.6rem, 2vw, 1.4rem);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.nav-links li {
+  display: flex;
+}
+.nav-link {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.4rem;
+  height: 2.4rem;
+  border-radius: 999px;
+  color: var(--ink);
+  transition: color 0.2s ease, background 0.2s ease;
+}
+.nav-link:hover,
+.nav-link[aria-current='page'] {
+  color: var(--accent);
+}
+/* custom illustrated icons (fixed colour) — respond with scale + opacity */
+.nav-icon {
+  width: 22px;
+  height: 22px;
+  object-fit: contain;
+  opacity: 0.72;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+.nav-link:hover .nav-icon,
+.nav-link:focus-visible .nav-icon,
+.nav-link[aria-current='page'] .nav-icon {
+  opacity: 1;
+  transform: scale(1.12);
+}
+/* tooltip label on hover/focus */
+.nav-link .nav-tip {
+  position: absolute;
+  top: calc(100% + 0.4rem);
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 0.25rem 0.5rem;
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  color: var(--paper);
+  background: var(--ink);
+  border-radius: 4px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.15s ease;
+}
+.nav-link:hover .nav-tip,
+.nav-link:focus-visible .nav-tip {
+  opacity: 1;
+}
+
+/* ---- Footer ----------------------------------------------- */
+.site-foot {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+  padding: 1.4rem var(--pad-x);
+  margin-top: 4rem;
+  border-top: 1px solid var(--hairline);
+  color: var(--ink-muted);
+}
+
+/* ============================================================
+   Home — hero video + project grid
+   ============================================================ */
+.home {
+  padding-top: clamp(1.5rem, 4vw, 3rem);
+}
+.home-hero {
+  position: relative;
+  width: 100%;
+  height: clamp(360px, 66vh, 760px);
+  overflow: hidden;
+  border-radius: 4px;
+  background: color-mix(in srgb, var(--ink) 8%, var(--paper));
+}
+.hero-video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.project-grid {
+  list-style: none;
+  margin: clamp(2rem, 5vw, 3.5rem) 0 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  align-items: start;
+  gap: clamp(0.8rem, 1.6vw, 1.4rem);
+}
+.grid-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+}
+@media (max-width: 640px) {
+  /* single column on small screens — every tile is full width */
+  .project-grid {
+    grid-template-columns: 1fr;
+  }
+}
+.grid-link {
+  position: relative;
+  display: block;
+  width: 100%;
+  /* every tile shares one ratio so the row reads as a line of equal images;
+     images are cropped to fit (see .grid-img object-fit: cover) */
+  aspect-ratio: 4 / 5;
+  overflow: hidden;
+  border-radius: 3px;
+}
+.grid-img {
+  object-fit: cover;
+  transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.grid-item:hover .grid-img {
+  transform: scale(1.04);
+}
+/* on hover: a black gradient, lighter towards the centre, with "see more" */
+.grid-hover {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: radial-gradient(
+    ellipse at center,
+    color-mix(in srgb, #000 30%, transparent) 0%,
+    color-mix(in srgb, #000 70%, transparent) 100%
+  );
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+.grid-link:hover .grid-hover,
+.grid-link:focus-visible .grid-hover {
+  opacity: 1;
+}
+.grid-hover-text {
+  font-family: var(--font-mono);
+  text-transform: uppercase;
+  letter-spacing: 0.24em;
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: #fff;
+  text-shadow: 0 1px 12px rgba(0, 0, 0, 0.6);
+  transform: translateY(6px);
+  transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.grid-link:hover .grid-hover-text,
+.grid-link:focus-visible .grid-hover-text {
+  transform: none;
+}
+/* small title + description beneath each thumbnail */
+.grid-caption {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+}
+.grid-cap-title {
+  margin: 0;
+  font-family: var(--font-title);
+  font-size: 1.05rem;
+  line-height: 1.2;
+  color: var(--ink);
+}
+.grid-cap-desc {
+  margin: 0;
+  color: color-mix(in srgb, var(--ink) 60%, var(--paper));
+}
+
+/* ============================================================
+   Designs — full-bleed vertical stack
+   ============================================================ */
+.designs-stack {
+  display: flex;
+  flex-direction: column;
+}
+.design-slab {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: clamp(420px, 88vh, 1000px);
+  overflow: hidden;
+}
+.slab-img {
+  object-fit: cover;
+  transition: transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.design-slab:hover .slab-img {
+  transform: scale(1.03);
+}
+.slab-overlay {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  background: color-mix(in srgb, var(--ink) 30%, transparent);
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+.slab-title {
+  font-family: var(--font-title);
+  font-size: clamp(2rem, 5vw, 4rem);
+  color: var(--paper);
+  text-align: center;
+  padding: 0 1rem;
+  transform: translateY(12px);
+  transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.design-slab:hover .slab-overlay,
+.design-slab:focus-visible .slab-overlay {
+  opacity: 1;
+}
+.design-slab:hover .slab-title,
+.design-slab:focus-visible .slab-title {
+  transform: none;
+}
+
+/* ============================================================
+   Project page
+   ============================================================ */
+.project {
+  padding-top: clamp(1.5rem, 4vw, 2.5rem);
+}
+.back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-muted);
+  margin-bottom: clamp(1.5rem, 3vw, 2.5rem);
+  transition: color 0.2s ease, gap 0.2s ease;
+}
+.back-link:hover {
+  color: var(--accent);
+  gap: 0.6rem;
+}
+.project-intro {
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+  gap: clamp(1.5rem, 4vw, 3.5rem);
+  align-items: start;
+}
+.project-figure {
+  position: relative;
+  aspect-ratio: 1 / 1;
+  overflow: hidden;
+  border-radius: 3px;
+  background: color-mix(in srgb, var(--ink) 8%, var(--paper));
+}
+.project-figure-img {
+  object-fit: cover;
+}
+.project-meta {
+  color: var(--accent);
+  margin-bottom: 0.8rem;
+}
+.project-title {
+  font-size: clamp(2rem, 4.5vw, 3.4rem);
+  margin-bottom: 0.4rem;
+}
+.project-alt {
+  font-family: var(--font-mono);
+  color: var(--ink-muted);
+  margin: 0 0 1.2rem;
+}
+.project-summary {
+  font-size: 1.02rem;
+  line-height: 1.7;
+  color: var(--ink);
+  max-width: 60ch;
+  margin: 1.2rem 0 0;
+}
+.project-links {
+  margin-top: 1.6rem;
+  display: flex;
+  gap: 1.2rem;
+  flex-wrap: wrap;
+}
+.project-links a {
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+  letter-spacing: 0.03em;
+  color: var(--accent);
+  border-bottom: 1px solid transparent;
+  padding-bottom: 2px;
+  transition: border-color 0.25s ease;
+}
+.project-links a:hover {
+  border-color: var(--accent);
+}
+.project-support {
+  margin-top: clamp(2.5rem, 6vw, 5rem);
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 260px), 1fr));
+  gap: clamp(0.8rem, 1.6vw, 1.4rem);
+}
+.support-figure {
+  position: relative;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  border-radius: 3px;
+  background: color-mix(in srgb, var(--ink) 8%, var(--paper));
+}
+.support-img {
+  object-fit: cover;
+}
+/* photos become buttons that open the lightbox */
+.media-button {
+  display: block;
+  width: 100%;
+  padding: 0;
+  border: 0;
+  font: inherit;
+  color: inherit;
+  cursor: zoom-in;
+}
+.media-button .project-figure-img,
+.media-button .support-img {
+  transition: transform 0.4s ease;
+}
+.media-button:hover .support-img,
+.media-button:focus-visible .support-img {
+  transform: scale(1.03);
+}
+
+/* ---- Gallery carousels ------------------------------------ */
+.project-carousels {
+  margin-top: clamp(2.5rem, 6vw, 5rem);
+  display: flex;
+  flex-direction: column;
+  gap: clamp(2rem, 5vw, 3.5rem);
+}
+.carousel-label {
+  color: var(--accent);
+  margin: 0 0 0.9rem;
+}
+.carousel-frame {
+  position: relative;
+}
+.carousel-stage {
+  position: relative;
+  display: block;
+  width: 100%;
+  aspect-ratio: 3 / 2;
+  overflow: hidden;
+  border-radius: 3px;
+  background: color-mix(in srgb, var(--ink) 8%, var(--paper));
+  cursor: zoom-in;
+}
+.carousel-img {
+  object-fit: cover;
+}
+.carousel-nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.6rem;
+  height: 2.6rem;
+  border: 0;
+  border-radius: 999px;
+  font-size: 1.8rem;
+  line-height: 1;
+  color: var(--ink);
+  background: color-mix(in srgb, var(--paper) 82%, transparent);
+  backdrop-filter: blur(3px);
+  cursor: pointer;
+  opacity: 0.85;
+  transition: opacity 0.2s ease, background 0.2s ease;
+}
+.carousel-nav:hover,
+.carousel-nav:focus-visible {
+  opacity: 1;
+  background: var(--paper);
+}
+.carousel-nav.prev { left: clamp(0.5rem, 1.5vw, 1rem); }
+.carousel-nav.next { right: clamp(0.5rem, 1.5vw, 1rem); }
+.carousel-dots {
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-top: 0.9rem;
+}
+.carousel-dot {
+  width: 7px;
+  height: 7px;
+  padding: 0;
+  border: 0;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--ink) 25%, transparent);
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+.carousel-dot.is-active {
+  background: var(--accent);
+  transform: scale(1.25);
+}
+
+/* ---- Lightbox --------------------------------------------- */
+.lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: clamp(1rem, 4vw, 3rem);
+  background: color-mix(in srgb, var(--ink) 88%, transparent);
+  backdrop-filter: blur(2px);
+  animation: lb-fade 0.2s ease;
+}
+@keyframes lb-fade {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+.lightbox-stage {
+  position: relative;
+  width: min(92vw, 1400px);
+  height: min(86vh, 1000px);
+}
+.lightbox-img {
+  object-fit: contain;
+}
+.lightbox-close,
+.lightbox-nav {
+  position: absolute;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 0;
+  color: var(--paper);
+  background: transparent;
+  cursor: pointer;
+  line-height: 1;
+  transition: opacity 0.2s ease;
+  opacity: 0.75;
+}
+.lightbox-close:hover,
+.lightbox-nav:hover,
+.lightbox-close:focus-visible,
+.lightbox-nav:focus-visible {
+  opacity: 1;
+}
+.lightbox-close {
+  top: clamp(0.6rem, 2vw, 1.4rem);
+  right: clamp(0.6rem, 2vw, 1.4rem);
+  width: 2.6rem;
+  height: 2.6rem;
+  font-size: 2rem;
+}
+.lightbox-nav {
+  top: 50%;
+  transform: translateY(-50%);
+  width: 3rem;
+  height: 3rem;
+  font-size: 3rem;
+}
+.lightbox-nav.prev { left: clamp(0.2rem, 1.5vw, 1rem); }
+.lightbox-nav.next { right: clamp(0.2rem, 1.5vw, 1rem); }
+.lightbox-count {
+  position: absolute;
+  bottom: clamp(0.6rem, 2vw, 1.4rem);
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.1em;
+  color: var(--paper);
+  opacity: 0.7;
+}
+
+/* ============================================================
+   About
+   ============================================================ */
+.about {
+  /* centre the column both ways: horizontally via auto margins, vertically by
+     filling the viewport (minus the nav) and centring its content */
+  max-width: 1000px;
+  margin-inline: auto;
+  min-height: calc(100svh - var(--nav-h));
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-block: clamp(2rem, 6vw, 4rem);
+}
+.about-grid {
+  display: grid;
+  grid-template-columns: 1.4fr 0.9fr;
+  gap: clamp(2rem, 5vw, 4rem);
+  align-items: start;
+  margin-top: 1.2rem;
+}
+.about-lead {
+  font-family: var(--font-title);
+  font-size: clamp(1.6rem, 3.2vw, 2.4rem);
+  line-height: 1.2;
+  max-width: 20ch;
+  margin: 0 0 1.6rem;
+}
+.about-body p {
+  color: var(--ink);
+  margin: 0 0 1.1em;
+  max-width: 56ch;
+}
+.about-figure {
+  position: relative;
+  aspect-ratio: 3 / 4;
+  border-radius: 3px;
+  overflow: hidden;
+  background: color-mix(in srgb, var(--accent) 12%, var(--paper));
+}
+.about-figure.is-empty {
+  display: grid;
+  place-items: center;
+}
+.about-photo {
+  object-fit: cover;
+}
+
+/* ============================================================
+   Contact
+   ============================================================ */
+.contact {
+  /* centred column, both axes (matches the About page) */
+  max-width: 640px;
+  margin-inline: auto;
+  container-type: inline-size; /* lets the email size to the column width */
+  min-height: calc(100svh - var(--nav-h));
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-block: clamp(2rem, 6vw, 4rem);
+}
+.contact-intro {
+  color: var(--ink);
+  margin: 1rem 0 1.6rem;
+}
+.contact-email {
+  font-family: var(--font-mono);
+  /* 28 monospace chars ≈ 16.8em wide; 5.75cqi fills the column exactly so the
+     address spans the same width as the form on one line */
+  font-size: min(2.6rem, 5.75cqi);
+  color: var(--ink);
+  display: block;
+  width: 100%;
+  white-space: nowrap;
+  position: relative;
+  margin-bottom: 2rem;
+}
+.contact-email::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 2px;
+  width: 100%;
+  height: 2px;
+  background: var(--accent);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.4s ease;
+}
+.contact-email:hover::after {
+  transform: scaleX(1);
+}
+.contact-links {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 3rem;
+}
+.contact-links li {
+  border-top: 1px solid var(--hairline);
+}
+.contact-links li:last-child {
+  border-bottom: 1px solid var(--hairline);
+}
+.contact-links a {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1rem 0.2rem;
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+  transition: padding-left 0.3s ease, color 0.25s ease;
+}
+.contact-links a:hover {
+  color: var(--accent);
+  padding-left: 0.8rem;
+}
+.contact-links .handle {
+  color: var(--ink-muted);
+}
+
+/* ---- Contact form ----------------------------------------- */
+.contact-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.1rem;
+}
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+.field input,
+.field textarea {
+  font-family: var(--font-body);
+  font-size: 1rem;
+  color: var(--ink);
+  background: color-mix(in srgb, var(--paper) 60%, #fff);
+  border: 1px solid var(--hairline);
+  border-radius: 3px;
+  padding: 0.7rem 0.8rem;
+  resize: vertical;
+}
+.field input:focus,
+.field textarea:focus {
+  outline: none;
+  border-color: var(--accent);
+}
+.form-foot {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+.cta {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--paper);
+  background: var(--accent);
+  border: 0;
+  border-radius: 999px;
+  padding: 0.7rem 1.6rem;
+  cursor: pointer;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+.cta:hover:not(:disabled) {
+  transform: translateY(-1px);
+}
+.cta:disabled {
+  opacity: 0.6;
+  cursor: default;
+}
+.form-note {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  color: var(--ink-muted);
+}
+.form-note.is-error {
+  color: var(--accent);
+}
+
+/* ============================================================
+   Responsive
+   ============================================================ */
+@media (max-width: 800px) {
+  .project-intro,
+  .about-grid {
+    grid-template-columns: 1fr;
+  }
+  .about-figure {
+    max-width: 340px;
+  }
+}

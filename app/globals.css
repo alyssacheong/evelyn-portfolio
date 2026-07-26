@@ -499,12 +499,22 @@ img {
 .project-head {
   margin-top: clamp(1.6rem, 4vw, 2.6rem);
   display: grid;
-  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
-  gap: clamp(1.5rem, 4vw, 3.5rem);
+  /* same two columns + gap as the image grid below, so the description's left
+     edge lines up with the left edge of the right-hand image */
+  grid-template-columns: repeat(2, 1fr);
+  gap: clamp(0.8rem, 1.6vw, 1.4rem);
   align-items: start;
 }
 .project-head .project-summary {
   margin-top: 0;
+}
+/* meta ("Unity game · 2025") sits directly under the title */
+.project-head-title .project-meta {
+  margin: 0.5rem 0 0;
+}
+/* each titleLines entry on its own line */
+.project-title .title-line {
+  display: block;
 }
 
 /* ---- Gallery grids (labelled groups) ---------------------- */

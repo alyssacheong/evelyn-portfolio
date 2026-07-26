@@ -80,7 +80,35 @@ export default function ProjectMedia({ project }: { project: Project }) {
               allowFullScreen
             />
           </div>
-          <div className="project-head">{copy}</div>
+          <div className="project-head">
+            <div className="project-head-title">
+              <h1 className="project-title">
+                {project.titleLines
+                  ? project.titleLines.map((line, i) => (
+                      <span key={i} className="title-line">
+                        {line}
+                      </span>
+                    ))
+                  : project.title}
+              </h1>
+              <p className="project-meta label">
+                {project.discipline} · {project.year}
+              </p>
+              {project.altTitle && <p className="project-alt">{project.altTitle}</p>}
+            </div>
+            <div className="project-head-body">
+              <p className="project-summary">{project.summary}</p>
+              {project.links?.length ? (
+                <div className="project-links">
+                  {project.links.map((l) => (
+                    <a key={l.href} href={l.href} target="_blank" rel="noreferrer">
+                      {l.label}
+                    </a>
+                  ))}
+                </div>
+              ) : null}
+            </div>
+          </div>
         </>
       ) : (
         <div className="project-intro">

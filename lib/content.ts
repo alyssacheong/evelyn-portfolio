@@ -7,6 +7,7 @@
 export type Project = {
   slug: string
   title: string
+  titleLines?: string[] // optional forced line breaks for the project-page heading
   altTitle?: string // secondary title, e.g. the original Japanese
   year: string
   discipline: string // short label, e.g. "Editorial · Print"
@@ -57,6 +58,7 @@ export const projects: Project[] = [
   {
     slug: 'among-the-lotus',
     title: 'Among the Lotus and the Light',
+    titleLines: ['Among the Lotus', 'and the Light'],
     year: '2025',
     discipline: 'Unity game',
     caption: 'A quiet 3D experience set in a lily pond at dusk.',

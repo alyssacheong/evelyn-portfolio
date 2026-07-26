@@ -18,7 +18,7 @@ export type Project = {
   gridRatio?: number // optional home-grid display ratio (w/h) if it should differ
                      // from the true image proportions (e.g. to match a neighbour)
   gallery?: string[] // additional supporting images (single grid)
-  galleryGroups?: { label: string; images: string[] }[] // labelled carousels instead of one grid
+  galleryGroups?: { label: string; images: string[]; perRow?: number }[] // labelled image grids (perRow columns)
   video?: string // YouTube video id (optional)
   links?: { label: string; href: string }[]
 }
@@ -58,24 +58,38 @@ export const projects: Project[] = [
     slug: 'among-the-lotus',
     title: 'Among the Lotus and the Light',
     year: '2025',
-    discipline: 'Interactive · 3D',
+    discipline: 'Unity game',
     caption: 'A quiet 3D experience set in a lily pond at dusk.',
     summary:
-      'A small interactive world you wander rather than watch — a lotus pond modelled in 3D and lit for the last minutes of dusk. There is no goal beyond being there: pushing through the leaves, following the fireflies, letting the low sun catch the water. I built the pads, blooms and stones loosely and leaned on lighting, fog and grain to pull the render toward painting rather than realism. Released as a downloadable Mac and Windows build, it became the anchor of this portfolio — patient, tactile, and unafraid of stillness.',
+      'Communication — communicated ideas based on trends and further developed them. Collaboration — worked together to meet deadlines and with other parts to produce satisfactory results. Organisational — shifted around schedules to fit others and made sure to confirm deadlines to produce them at a reasonable degree.',
     image: '/images/lotus/heroc.jpg',
     width: 1800,
     height: 1125,
-    gallery: [
-      '/images/lotus/01.jpg',
-      '/images/lotus/02.jpg',
-      '/images/lotus/03.jpg',
-      '/images/lotus/10.png',
-      '/images/lotus/04c.jpg',
-      '/images/lotus/05c.jpg',
-      '/images/lotus/06c.jpg',
-      '/images/lotus/07c.jpg',
-      '/images/lotus/08c.jpg',
-      '/images/lotus/09c.jpg',
+    galleryGroups: [
+      {
+        // the render pictures — larger, two per row
+        label: '',
+        perRow: 2,
+        images: [
+          '/images/lotus/04c.jpg',
+          '/images/lotus/05c.jpg',
+          '/images/lotus/06c.jpg',
+          '/images/lotus/07c.jpg',
+          '/images/lotus/08c.jpg',
+          '/images/lotus/09c.jpg',
+        ],
+      },
+      {
+        // Unity editor screenshots — smaller, three per row
+        label: 'Work in progress',
+        perRow: 3,
+        images: [
+          '/images/lotus/01.jpg',
+          '/images/lotus/02.jpg',
+          '/images/lotus/03.jpg',
+          '/images/lotus/10.png',
+        ],
+      },
     ],
     video: 'OkA0fB94ttY',
   },

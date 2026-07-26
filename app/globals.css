@@ -468,7 +468,7 @@ img {
   border: 0;
   font: inherit;
   color: inherit;
-  cursor: zoom-in;
+  cursor: pointer;
 }
 .media-button .project-figure-img,
 .media-button .support-img {
@@ -479,80 +479,74 @@ img {
   transform: scale(1.03);
 }
 
-/* ---- Gallery carousels ------------------------------------ */
-.project-carousels {
+/* ---- Video-top project layout ----------------------------- */
+.project-video {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  border-radius: 4px;
+  background: var(--ink);
+}
+.project-video iframe {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+/* title (left) + summary (right), below the video */
+.project-head {
+  margin-top: clamp(1.6rem, 4vw, 2.6rem);
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+  gap: clamp(1.5rem, 4vw, 3.5rem);
+  align-items: start;
+}
+.project-head .project-summary {
+  margin-top: 0;
+}
+
+/* ---- Gallery grids (labelled groups) ---------------------- */
+.project-groups {
   margin-top: clamp(2.5rem, 6vw, 5rem);
   display: flex;
   flex-direction: column;
   gap: clamp(2rem, 5vw, 3.5rem);
 }
-.carousel-label {
+.group-label {
   color: var(--accent);
   margin: 0 0 0.9rem;
 }
-.carousel-frame {
-  position: relative;
+.group-grid {
+  display: grid;
+  grid-template-columns: repeat(var(--cols, 2), 1fr);
+  gap: clamp(0.8rem, 1.6vw, 1.4rem);
 }
-.carousel-stage {
+.group-cell {
   position: relative;
-  display: block;
-  width: 100%;
   aspect-ratio: 3 / 2;
   overflow: hidden;
   border-radius: 3px;
   background: color-mix(in srgb, var(--ink) 8%, var(--paper));
-  cursor: zoom-in;
+  cursor: pointer;
 }
-.carousel-img {
+.group-img {
   object-fit: cover;
+  transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
 }
-.carousel-nav {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  z-index: 1;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 2.6rem;
-  height: 2.6rem;
-  border: 0;
-  border-radius: 999px;
-  font-size: 1.8rem;
-  line-height: 1;
-  color: var(--ink);
-  background: color-mix(in srgb, var(--paper) 82%, transparent);
-  backdrop-filter: blur(3px);
-  cursor: pointer;
-  opacity: 0.85;
-  transition: opacity 0.2s ease, background 0.2s ease;
+.group-cell:hover .group-img,
+.group-cell:focus-visible .group-img {
+  transform: scale(1.04);
 }
-.carousel-nav:hover,
-.carousel-nav:focus-visible {
-  opacity: 1;
-  background: var(--paper);
-}
-.carousel-nav.prev { left: clamp(0.5rem, 1.5vw, 1rem); }
-.carousel-nav.next { right: clamp(0.5rem, 1.5vw, 1rem); }
-.carousel-dots {
-  display: flex;
-  justify-content: center;
-  gap: 0.5rem;
-  margin-top: 0.9rem;
-}
-.carousel-dot {
-  width: 7px;
-  height: 7px;
-  padding: 0;
-  border: 0;
-  border-radius: 999px;
-  background: color-mix(in srgb, var(--ink) 25%, transparent);
-  cursor: pointer;
-  transition: background 0.2s ease, transform 0.2s ease;
-}
-.carousel-dot.is-active {
-  background: var(--accent);
-  transform: scale(1.25);
+@media (max-width: 640px) {
+  /* stack the title/summary and drop grids to fewer columns on small screens */
+  .project-head {
+    grid-template-columns: 1fr;
+  }
+  .group-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
 }
 
 /* ---- Lightbox --------------------------------------------- */

@@ -5,7 +5,6 @@ export default function ContactPage() {
   return (
     <div className="content contact">
       <p className="label">Contact</p>
-      <p className="contact-intro">{contact.intro}</p>
 
       <a className="contact-email" href={`mailto:${contact.email}`}>
         {contact.email}

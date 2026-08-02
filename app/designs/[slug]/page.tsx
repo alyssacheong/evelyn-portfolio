@@ -15,7 +15,7 @@ type Params = {
 // where the back arrow returns to, based on where the visitor clicked in
 const ORIGINS: Record<string, { href: string; label: string }> = {
   home: { href: '/', label: 'Home' },
-  designs: { href: '/designs', label: 'All the Works' },
+  designs: { href: '/designs', label: 'Works' },
 }
 
 export function generateStaticParams() {

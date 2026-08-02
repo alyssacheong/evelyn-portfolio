@@ -44,15 +44,14 @@ export const site = {
 export const about = {
   photo: '/images/about/portrait.jpg' as string | undefined,
   photoCaption: 'Evelyn Tong',
-  lead:
-    'I’m Evelyn Tong, an Interdisciplinary designer that crosses the disciplines of Graphic Design, 3D Visualisations and Fashion together.',
+  lead: 'I’m Evelyn Tong,',
   body: [
-    'Working across different dimensions from digital mediums to physical mediums, I conceptualise tailored solutions using the combination of my skills to connect to audiences best. My practice involves using 3D modelling for object designs, set designs, prototypes, games and art. Graphic design allows me to design publications, posters and typography. My studies of fashion for the past 6 years gives me the knowledge to understand clientele in the fashion industry as well as an awareness for sustainable practices, as a foundation for my main two disciplines.',
+    'An Interdisciplinary designer that crosses the disciplines of Graphic Design, 3D Visualisations and Fashion together. Working across digital and physical mediums, I conceptualise tailored solutions using the combination of my skills to connect to audiences best.',
+    'My practice involves using 3D modelling for object designs, set designs, prototypes, games and art. Graphic design allows me to design publications, posters and typography. My studies of fashion for the past 6 years gives me the knowledge to understand clientele in the fashion industry as well as an awareness for sustainable practices, as a foundation for my main two disciplines.',
   ],
 }
 
 export const contact = {
-  intro: 'For commissions or collaborations',
   email: 'evelyntong.designs@gmail.com',
   links: [
     { label: 'Instagram', href: 'https://instagram.com/evelyntong.design', handle: '@evelyntong.design' },
@@ -101,11 +100,10 @@ export const projects: Project[] = [
     caption: 'A print zine on hosting Lolita tea parties.',
     summary:
       'This is publication is about Lolita culture, with each issue of the magazine diving into a certain part. This is aimed at aspiring young people that want to know more about the community. This specific edition is about Tea Parties. Going into topics like the history behind them, what do to at them and how to host one as well. This was inspired by Japanese gift magazines where there is a physical item sold inside the magazine. There is a sticker set where the viewer can set dress a tea party to match their concept. As a designer, this idea fits perfectly with my interests and aesthetics, so it pushed me to develop what I would call "my style".',
-    // thumbnail on the All the Works stack — the sweets/teacup illustration
-    image: '/images/tea-party/banner.jpg',
-    width: 1920,
-    height: 504,
-    headerImage: '/images/tea-party/banner.jpg',
+    // thumbnail on the Works stack — the "Tea Parties" teacup cover
+    image: '/images/tea-party/home.png',
+    width: 894,
+    height: 1072,
     // slideshow reel — autoplays + loops like the home hero (muted, no controls)
     videoSrc: '/videos/tea-party.mp4',
     videoPoster: '/images/tea-party/cover.jpg',
@@ -119,12 +117,11 @@ export const projects: Project[] = [
     discipline: 'Motion Graphics Animation',
     caption: 'A song cover with motion typography and 3D camera layers.',
     summary:
-      'Hibikase is a song cover for a competition called Reflective Duet Battle 2024. My roles within the team were singer, storyboard artist, outfit designer and motion graphics animator. This was animated in Adobe After Effects, it showcases motion typography, 3D camera layers and scene composition. This was a valuable leadership experience for me as it was the first time I led a creative group project, working alongside audio engineers, singers, artists and animators. It taught me how to communicate with other creatives effectively and how to share my creative vision with others. There were lots of stressful but also good moments. This project taught me how to use After Effects and it has elevated how I design with typography now.\n\nCredits — Naffan44: Art. Damon3758: Compositor.',
-    // two-character key art — used as the stack thumbnail and page banner
+      'Hibikase is a song cover for a competition called Reflective Duet Battle 2024. My roles within the team were singer, storyboard artist, outfit designer and motion graphics animator. This was animated in Adobe After Effects, it showcases motion typography, 3D camera layers and scene composition. This was a valuable leadership experience for me as it was the first time I led a creative group project, working alongside audio engineers, singers, artists and animators. It taught me how to communicate with other creatives effectively and how to share my creative vision with others. There were lots of stressful but also good moments. This project taught me how to use After Effects and it has elevated how I design with typography now.\n\nCredits — Naffan44 & Huakyuu: Art. Damon3758: Compositor. Ebotreson: 3D Background.',
+    // two-character key art — used as the stack thumbnail (no page banner)
     image: '/images/hibikase/02.jpg',
     width: 960,
     height: 453,
-    headerImage: '/images/hibikase/02.jpg',
     // the showcase cut — autoplays + loops, muted
     videoSrc: '/videos/hibikase-showcase.mp4',
     videoPoster: '/images/hibikase/02.jpg',
@@ -168,8 +165,6 @@ export const projects: Project[] = [
     image: '/images/coral/hero.jpg',
     width: 1800,
     height: 1012,
-    // the beach key art runs full-width at the top of the page
-    headerImage: '/images/coral/hero.jpg',
     // the music video (embedded up top, as there's no self-hosted file)
     youtube: 'Etf7vLxaUu4',
     galleryGroups: [

@@ -316,7 +316,10 @@ img {
 .grid-cap-title {
   margin: 0;
   font-family: var(--font-title);
-  font-size: clamp(1.3rem, 1.9vw, 1.7rem);
+  /* sized so the longest title ("Among the Lotus and the Light") stays on one line
+     across the whole multi-column range (tiles shrink faster than a fixed floor) */
+  font-size: clamp(0.66rem, 1.28vw, 1.15rem);
+  font-weight: 700;
   line-height: 1.15;
   color: var(--ink);
 }
@@ -332,6 +335,10 @@ img {
 .designs-stack {
   display: flex;
   flex-direction: column;
+  /* a little breathing room between works */
+  gap: clamp(0.8rem, 1.6vw, 1.4rem);
+  /* same gutters + top padding as the home page */
+  padding: clamp(1.5rem, 4vw, 3rem) clamp(2.5rem, 11vw, 11rem);
 }
 .design-slab {
   position: relative;
@@ -339,6 +346,7 @@ img {
   width: 100%;
   height: clamp(420px, 88vh, 1000px);
   overflow: hidden;
+  border-radius: 4px;
 }
 .slab-img {
   object-fit: cover;
@@ -414,6 +422,8 @@ img {
 }
 .project-meta {
   color: var(--accent);
+  /* match the home tiles' discipline·year courier size (.grid-cap-desc) */
+  font-size: 0.82rem;
   margin-bottom: 0.8rem;
 }
 .project-title {
@@ -431,6 +441,8 @@ img {
   color: var(--ink);
   max-width: 60ch;
   margin: 1.2rem 0 0;
+  /* honour intentional line breaks in the copy (e.g. the Hibikase credits) */
+  white-space: pre-line;
 }
 .project-links {
   margin-top: 1.6rem;
@@ -805,10 +817,6 @@ img {
   flex-direction: column;
   justify-content: center;
   padding-block: clamp(2rem, 6vw, 4rem);
-}
-.contact-intro {
-  color: var(--ink);
-  margin: 1rem 0 1.6rem;
 }
 .contact-email {
   font-family: var(--font-mono);

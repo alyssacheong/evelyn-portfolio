@@ -8,7 +8,7 @@ import { getProject } from '@/lib/content'
    the home tile, leaving the project detail page untouched. */
 const featured = [
   { slug: 'among-the-lotus', title: 'Among the Lotus and the Light', desc: 'Unity game · 2025', image: '/images/lotus/home.png' },
-  { slug: 'lolita-tea-party', title: 'Lolita Tea Party Magazine', desc: 'Publication · 2025', image: '/images/tea-party/cover.jpg' },
+  { slug: 'lolita-tea-party', title: 'Lolita Tea Party Magazine', desc: 'Publication · 2025', image: '/images/tea-party/home.png' },
   { slug: 'hibikase', title: 'Hibikase Music Video', desc: 'Motion Graphics Animation · 2024', image: '/images/hibikase/home.jpg' },
 ]
 

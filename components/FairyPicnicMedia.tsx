@@ -12,7 +12,6 @@ import Lightbox from './Lightbox'
 
 type Photo = { src: string; w: number; h: number; alt: string }
 
-const banner: Photo = { src: '/images/fairy-picnic/02.jpg', w: 2000, h: 739, alt: 'The mural in the meeting room' }
 const lead: Photo = { src: '/images/fairy-picnic/05.jpg', w: 2000, h: 1333, alt: 'The mural room, seen past the timber screen' }
 const art: Photo = { src: '/images/fairy-picnic/hero.jpg', w: 2400, h: 1124, alt: 'The original watercolour artwork' }
 const roomA: Photo = { src: '/images/fairy-picnic/03.jpg', w: 2000, h: 1113, alt: 'The mural room from the doorway' }
@@ -20,7 +19,7 @@ const roomB: Photo = { src: '/images/fairy-picnic/04.jpg', w: 2000, h: 1333, alt
 const bottom: Photo = { src: '/images/fairy-picnic/01.jpg', w: 2000, h: 2000, alt: 'The finished mural above the table' }
 
 // visual order, which is also the order the lightbox steps through
-const order = [banner, lead, art, roomA, roomB, bottom]
+const order = [lead, art, roomA, roomB, bottom]
 const sources = order.map((p) => p.src)
 
 export default function FairyPicnicMedia({ project }: { project: Project }) {
@@ -50,8 +49,7 @@ export default function FairyPicnicMedia({ project }: { project: Project }) {
   return (
     <>
       <div className="plan-media">
-        <Wide p={banner} priority />
-        <Wide p={lead} />
+        <Wide p={lead} priority />
       </div>
 
       <div className="project-head">

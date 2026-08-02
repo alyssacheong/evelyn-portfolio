@@ -9,7 +9,7 @@ type NavItem = { href: string; label: string; icon: string }
 
 const NAV: NavItem[] = [
   { href: '/', label: 'Home', icon: '/icons/home_icon.png' },
-  { href: '/designs', label: 'All the Works', icon: '/icons/design_icon.png' },
+  { href: '/designs', label: 'Works', icon: '/icons/design_icon.png' },
   { href: '/about', label: 'About', icon: '/icons/about_icon.png' },
   { href: '/contact', label: 'Contact', icon: '/icons/contact_icon.png' },
 ]

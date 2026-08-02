@@ -2,7 +2,7 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { projects } from '@/lib/content'
 
-export const metadata = { title: 'All the Works — Evelyn Tong' }
+export const metadata = { title: 'Works — Evelyn Tong' }
 
 /* All the Works — a vertical stack of full-bleed, near-full-viewport images,
    one per project. Hover reveals the title; the slab links to /designs/[slug]. */

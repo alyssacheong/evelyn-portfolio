@@ -13,35 +13,41 @@ export type Project = {
   discipline: string // short label, e.g. "Editorial · Print"
   caption: string // one-line caption (used in hover overlays)
   summary: string // body copy on the project page
-  image: string // hero / thumbnail image
+  image: string // hero / thumbnail image (used on the All the Works stack)
   width: number // hero pixel width  — drives the home grid proportions
   height: number // hero pixel height
   gridRatio?: number // optional home-grid display ratio (w/h) if it should differ
                      // from the true image proportions (e.g. to match a neighbour)
+  headerImage?: string // optional full-bleed banner shown at the very top of the page
   gallery?: string[] // additional supporting images (single grid)
   galleryGroups?: { label: string; images: string[]; perRow?: number }[] // labelled image grids (perRow columns)
-  video?: string // YouTube video id (optional)
+  trailing?: string[] // full-width image(s) shown below the gallery
+  youtube?: string // YouTube video id (embedded player)
+  videoSrc?: string // self-hosted video file (in /public)
+  videoPoster?: string // poster frame for the self-hosted video
+  videoControls?: boolean // true → native controls, no autoplay; false/undefined → autoplay + muted + loop
   links?: { label: string; href: string }[]
 }
 
 export const site = {
   name: 'Evelyn Tong',
+  // two-tone Didot wordmark: "Evelyn" (magenta) + "Tong." (aubergine)
+  brand: { first: 'Evelyn', second: 'Tong.' },
   role: 'Design Portfolio',
   heroTitle: 'Among the Lotus and the Light',
   heroSubtitle:
-    'A quiet collection of editorial, branding and print work — made slowly, on paper.',
+    'An interdisciplinary design portfolio spanning graphic design, 3D and fashion.',
   // hero video: drop a file into /public and point here (see Home page)
-  heroVideo: '/portfolio-video-2.mp4',
+  heroVideo: '/hero.mp4',
 }
 
 export const about = {
-  photo: undefined as string | undefined, // e.g. '/images/evelyn.jpg'
-  photoCaption: 'Evelyn Tong — studio, 2026',
-  lead: 'I’m Evelyn, a designer working across print, editorial and identity.',
+  photo: '/images/about/portrait.jpg' as string | undefined,
+  photoCaption: 'Evelyn Tong',
+  lead:
+    'I’m Evelyn Tong, an Interdisciplinary designer that crosses the disciplines of Graphic Design, 3D Visualisations and Fashion together.',
   body: [
-    'I make work that prefers texture over polish — the grain of paper, the bleed of a wash, the weight of a well-set line. My practice sits somewhere between the couture of a display serif and the honesty of a typewriter, and I like keeping both in the room.',
-    'Most projects start with material: a swatch, a photograph, a colour mixed one more time with water. From there I build systems that stay calm and legible, letting one deliberate moment of colour carry the personality rather than a dozen competing effects.',
-    'When I’m not designing I’m usually reading, brewing tea, or photographing light through leaves.',
+    'Working across different dimensions from digital mediums to physical mediums, I conceptualise tailored solutions using the combination of my skills to connect to audiences best. My practice involves using 3D modelling for object designs, set designs, prototypes, games and art. Graphic design allows me to design publications, posters and typography. My studies of fashion for the past 6 years gives me the knowledge to understand clientele in the fashion industry as well as an awareness for sustainable practices, as a foundation for my main two disciplines.',
   ],
 }
 
@@ -63,114 +69,128 @@ export const projects: Project[] = [
     discipline: 'Unity game',
     caption: 'A quiet 3D experience set in a lily pond at dusk.',
     summary:
-      'Communication — communicated ideas based on trends and further developed them. Collaboration — worked together to meet deadlines and with other parts to produce satisfactory results. Organisational — shifted around schedules to fit others and made sure to confirm deadlines to produce them at a reasonable degree.',
+      'Among the Lotus and the Light is a concept driven 3D interactive environment, a walkthrough experience built in Unity. Creating a narrative through environmental clues, a world was created based on a series of what-if questions. What if the moon grew big and it rose the sea level and the caused lotus flowers to grow ginormous. What would human civilisation look like? Clues of the past are carved into the stones, scattered along the path. They depict high-rise buildings crumbling, the moon and flowers rising and lastly, a boat civilisation inspired by floating villages in Vietnam. By imagining what materials would be available, the boat was designed with driftwood and lotus leaves. Sound design, game design and 3D design combined all together allows me to tell a story in an incredibly unique way.',
     image: '/images/lotus/heroc.jpg',
     width: 1800,
     height: 1125,
+    // Self-hosted walkthrough with native playback controls.
+    // NOTE: drop the exported file at public/videos/lotus.mp4 (Google Drive
+    // source in the brief); until then the poster frame is shown.
+    videoSrc: '/videos/lotus.mp4',
+    videoPoster: '/images/lotus/heroc.jpg',
+    videoControls: true,
     galleryGroups: [
       {
-        // the render pictures — larger, two per row
         label: '',
         perRow: 2,
         images: [
-          '/images/lotus/04c.jpg',
-          '/images/lotus/05c.jpg',
-          '/images/lotus/06c.jpg',
-          '/images/lotus/07c.jpg',
-          '/images/lotus/08c.jpg',
-          '/images/lotus/09c.jpg',
-        ],
-      },
-      {
-        // Unity editor screenshots — smaller, three per row
-        label: 'Work in progress',
-        perRow: 3,
-        images: [
-          '/images/lotus/01.jpg',
-          '/images/lotus/02.jpg',
-          '/images/lotus/03.jpg',
-          '/images/lotus/10.png',
+          '/images/lotus/g1.jpg', // wide mountain / lake, pink mist
+          '/images/lotus/g2.jpg', // sunset over the water
+          '/images/lotus/g3.jpg', // boat-deck interior, warm light
+          '/images/lotus/g4.jpg', // carved stone close-up
         ],
       },
     ],
-    video: 'OkA0fB94ttY',
-  },
-  {
-    slug: 'coral-garden',
-    title: 'Miniature Coral Garden Music Video',
-    altTitle: '箱庭のコーラル',
-    year: '2024',
-    discipline: 'Music Video · Illustration',
-    caption: 'An illustrated music video — Hakoniwa no Coral.',
-    summary:
-      'An illustrated music video for 箱庭のコーラル (Hakoniwa no Coral) — a summer song about five friends and a shrinking seaside afternoon. I designed the cast and key visuals in a soft anime style, then built the sequence around a bright beach palette and a hand-lettered Japanese title. The work moved between character design, background painting and editing to keep the whole thing light on its feet, matching the buoyancy of the track. It was an exercise in warmth and restraint — letting a few confident colours and a clear line carry the mood rather than busy motion.',
-    image: '/images/coral/hero.jpg',
-    width: 1800,
-    height: 1012,
-    gallery: [
-      '/images/coral/01.jpg',
-      '/images/coral/02.jpg',
-      '/images/coral/03.jpg',
-      '/images/coral/04.jpg',
-      '/images/coral/05.jpg',
-    ],
-    video: 'Etf7vLxaUu4',
+    trailing: ['/images/lotus/g5.jpg'], // full-width lotus close-up
   },
   {
     slug: 'lolita-tea-party',
     title: 'Lolita Tea Party Magazine',
     year: '2025',
-    discipline: 'Editorial · Print',
+    discipline: 'Publication',
     caption: 'A print zine on hosting Lolita tea parties.',
     summary:
-      'A print magazine and identity built around the ritual of the Lolita tea party. Set on a soft gingham system with hand-placed labels and illustrated china, each spread — Contents, choosing a theme, keeping guests entertained, activities to do — reads like a place setting rather than a page. I wrote and art-directed the whole issue, pairing a warm display serif with tidy body copy and photographing friends in coordinate to ground the styling in something real. Printed on uncoated stock that takes ink like a tea stain, it is equal parts guide and keepsake.',
-    image: '/images/tea-party/05.jpg',
-    width: 1434,
-    height: 1078,
-    gallery: [
-      '/images/tea-party/01.jpg',
-      '/images/tea-party/02.jpg',
-      '/images/tea-party/03.jpg',
-      '/images/tea-party/04.jpg',
-      '/images/tea-party/hero.jpg',
-    ],
-    links: [
-      {
-        label: 'Read the magazine (PDF)',
-        href: '/files/lolita-tea-party-magazine.pdf',
-      },
-    ],
+      'This is publication is about Lolita culture, with each issue of the magazine diving into a certain part. This is aimed at aspiring young people that want to know more about the community. This specific edition is about Tea Parties. Going into topics like the history behind them, what do to at them and how to host one as well. This was inspired by Japanese gift magazines where there is a physical item sold inside the magazine. There is a sticker set where the viewer can set dress a tea party to match their concept. As a designer, this idea fits perfectly with my interests and aesthetics, so it pushed me to develop what I would call "my style".',
+    // thumbnail on the All the Works stack — the sweets/teacup illustration
+    image: '/images/tea-party/banner.jpg',
+    width: 1920,
+    height: 504,
+    headerImage: '/images/tea-party/banner.jpg',
+    // slideshow reel — autoplays + loops like the home hero (muted, no controls)
+    videoSrc: '/videos/tea-party.mp4',
+    videoPoster: '/images/tea-party/cover.jpg',
+    // The page uses a bespoke layout (see TeaPartyMedia): a decorative sweets
+    // strip followed by two magazine spreads (cover.jpg + spread.jpg).
   },
   {
-    slug: 'botanical-mural',
-    title: 'Botanical Mural Installation',
-    year: '2025',
-    discipline: 'Mural · Illustration',
-    caption: 'A hand-painted watercolour mural for a UNSW common room.',
+    slug: 'hibikase',
+    title: 'Hibikase Music Video',
+    year: '2024',
+    discipline: 'Motion Graphics Animation',
+    caption: 'A song cover with motion typography and 3D camera layers.',
     summary:
-      'A large-scale watercolour mural installed in a common room of the UNSW Science & Engineering building. The wall is given over to a cast of wildflowers drawn as small luminous characters — petals lit from within, stems arching like limbs — so that a working meeting space is quietly turned into a garden. I illustrated the piece by hand in soft washes of yellow, violet and green, then scaled it to run the full length of the wall, keeping the linework loose and the colour translucent so the mural reads as painting rather than print even at architectural size. Wrapping around joinery, glazing and the curve of the room, it holds its warmth against the clean timber and grey of the fit-out.',
-    image: '/images/mural/hero.jpg',
-    width: 2000,
-    height: 2000,
-    gridRatio: 1800 / 1169, // match the lotus tile it sits beside on the home grid
-    gallery: [
-      '/images/mural/01.jpg',
-      '/images/mural/02.jpg',
-      '/images/mural/03.jpg',
-      '/images/mural/04.jpg',
+      'Hibikase is a song cover for a competition called Reflective Duet Battle 2024. My roles within the team were singer, storyboard artist, outfit designer and motion graphics animator. This was animated in Adobe After Effects, it showcases motion typography, 3D camera layers and scene composition. This was a valuable leadership experience for me as it was the first time I led a creative group project, working alongside audio engineers, singers, artists and animators. It taught me how to communicate with other creatives effectively and how to share my creative vision with others. There were lots of stressful but also good moments. This project taught me how to use After Effects and it has elevated how I design with typography now.\n\nCredits — Naffan44: Art. Damon3758: Compositor.',
+    // two-character key art — used as the stack thumbnail and page banner
+    image: '/images/hibikase/02.jpg',
+    width: 960,
+    height: 453,
+    headerImage: '/images/hibikase/02.jpg',
+    // the showcase cut — autoplays + loops, muted
+    videoSrc: '/videos/hibikase-showcase.mp4',
+    videoPoster: '/images/hibikase/02.jpg',
+    // the full music video on YouTube, embedded below the description
+    youtube: 'uH5DJXdLumo',
+    // two stills beneath the video, stacked full-width
+    galleryGroups: [
+      {
+        label: '',
+        perRow: 1,
+        images: [
+          '/images/hibikase/hero.jpg', // 午前零時 scene
+          '/images/hibikase/01.jpg', // を集がれる dance shot
+        ],
+      },
     ],
   },
   {
     slug: 'fairy-picnic',
     title: 'Whimsical Fairy Picnic',
     year: '2025',
-    discipline: 'Illustration · Watercolour',
+    discipline: 'Mural Illustration',
     caption: 'A watercolour of flower-fairies gathered for a picnic.',
     summary:
-      'A wide watercolour of a picnic held among the flowers, where each guest is a bloom come to life — petals worn like skirts and wings, stamens glowing like little lanterns. A pair take tea at a table set on an upturned blossom while others drift in on beams of pollen-gold light. I painted it in loose, translucent washes of green, violet and yellow, letting the paper breathe between figures and keeping the linework soft so the whole scene stays gentle and dreamlike. It is a companion piece to the botanical mural — the same cast of flower-fairies, gathered here for something quieter.',
-    image: '/images/fairy-picnic/hero.jpg',
+      'This is the Whimsical Fairy Garden which is an artwork that won UNSW’s Student Artwork Competition in 2025. It resides in the Rupert Myers building, with the purpose of creating a lively environment which encourages students to hang out and use the space. This painting was made on the idea of combining NSW native flora and childlike wonder, resulting in a picture book-esque look. Capturing the fun inside little fairies, encouraging the viewer to peel back the scene by seeing the interactions between them all. I wanted to tell a story that became immersive as it feels like you art part of the picnic too. The use of watercolour in the artwork was inspired by old Australian picture books. Transferring this idea from digital sketches to a physical artwork added challenges abd happy accidents but it created an artwork with a soul.',
+    // the installed mural in situ — used as the stack thumbnail.
+    // The page itself uses a bespoke layout (see FairyPicnicMedia).
+    image: '/images/fairy-picnic/01.jpg',
     width: 2400,
     height: 1124,
+  },
+  {
+    slug: 'coral-garden',
+    title: 'Miniature Coral Garden MV',
+    altTitle: '箱庭のコーラル',
+    year: '2026',
+    discipline: 'Character Illustration',
+    caption: 'An illustrated music video — Hakoniwa no Coral.',
+    summary:
+      'Miniature Coral’s Garden is a collaboration with many talented people, creating a song cover for the 6 Day Chorus Challenge. This was led and organised by me as I recruited the roster, conceptualised the idea for the music video and illustrated the character sprites. I also sang and worked on the audio tuning as well. This was drawn in procreate, creating poses that fit the personality of the singers behind them. As a designer, I felt that this project was able to push me to create highly resolved work in a compressed timeframe. When time is short, perfectionism is a killer of projects but getting over that and creating with one’s current best of abilities creates awesome work.',
+    image: '/images/coral/hero.jpg',
+    width: 1800,
+    height: 1012,
+    // the beach key art runs full-width at the top of the page
+    headerImage: '/images/coral/hero.jpg',
+    // the music video (embedded up top, as there's no self-hosted file)
+    youtube: 'Etf7vLxaUu4',
+    galleryGroups: [
+      {
+        // finished character sprites, then the sunset beach scene — full-width
+        label: '',
+        perRow: 1,
+        images: ['/images/coral/05.jpg', '/images/coral/beach.jpg'],
+      },
+      {
+        // process sketches
+        label: '',
+        perRow: 4,
+        images: [
+          '/images/coral/01.jpg',
+          '/images/coral/03.jpg',
+          '/images/coral/02.jpg',
+          '/images/coral/04.jpg',
+        ],
+      },
+    ],
   },
 ]
 

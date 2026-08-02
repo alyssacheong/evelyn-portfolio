@@ -9,7 +9,7 @@ type NavItem = { href: string; label: string; icon: string }
 
 const NAV: NavItem[] = [
   { href: '/', label: 'Home', icon: '/icons/home_icon.png' },
-  { href: '/designs', label: 'Designs', icon: '/icons/design_icon.png' },
+  { href: '/designs', label: 'All the Works', icon: '/icons/design_icon.png' },
   { href: '/about', label: 'About', icon: '/icons/about_icon.png' },
   { href: '/contact', label: 'Contact', icon: '/icons/contact_icon.png' },
 ]
@@ -22,9 +22,10 @@ export default function Nav() {
 
   return (
     <nav className="site-nav" aria-label="Primary">
-      {/* brand wordmark */}
-      <Link href="/" className="nav-brand">
-        <span className="nav-brand-text">{site.name}</span>
+      {/* brand wordmark — Didot Bold, two-tone */}
+      <Link href="/" className="nav-brand" aria-label={site.name}>
+        <span className="nav-brand-first">{site.brand.first}</span>
+        <span className="nav-brand-second">{site.brand.second}</span>
       </Link>
 
       <ul className="nav-links">

@@ -4,6 +4,8 @@ import type { Metadata } from 'next'
 import { ArrowLeft } from 'lucide-react'
 import { getProject, projects, site } from '@/lib/content'
 import ProjectMedia from '@/components/ProjectMedia'
+import FairyPicnicMedia from '@/components/FairyPicnicMedia'
+import TeaPartyMedia from '@/components/TeaPartyMedia'
 
 type Params = {
   params: Promise<{ slug: string }>
@@ -13,7 +15,7 @@ type Params = {
 // where the back arrow returns to, based on where the visitor clicked in
 const ORIGINS: Record<string, { href: string; label: string }> = {
   home: { href: '/', label: 'Home' },
-  designs: { href: '/designs', label: 'Designs' },
+  designs: { href: '/designs', label: 'All the Works' },
 }
 
 export function generateStaticParams() {
@@ -43,8 +45,15 @@ export default async function ProjectPage({ params, searchParams }: Params) {
         <span>{back.label}</span>
       </Link>
 
-      {/* two-column intro + supporting images, with click-to-zoom lightbox */}
-      <ProjectMedia project={project} />
+      {/* two-column intro + supporting images, with click-to-zoom lightbox.
+          Fairy Picnic and Tea Party use bespoke layouts per their page plans. */}
+      {project.slug === 'fairy-picnic' ? (
+        <FairyPicnicMedia project={project} />
+      ) : project.slug === 'lolita-tea-party' ? (
+        <TeaPartyMedia project={project} />
+      ) : (
+        <ProjectMedia project={project} />
+      )}
     </article>
   )
 }

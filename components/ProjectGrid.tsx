@@ -7,9 +7,9 @@ import { getProject } from '@/lib/content'
    title + description underneath. `image` overrides the project's own hero for
    the home tile, leaving the project detail page untouched. */
 const featured = [
-  { slug: 'among-the-lotus', title: 'Among the Lotus and the Light', desc: '3D Visualisation · Unity game', image: '/images/lotus/home.png' },
-  { slug: 'fairy-picnic', title: 'Whimsical Fairy Picnic', desc: 'Illustration · Mural', image: '/images/mural/home.png' },
-  { slug: 'lolita-tea-party', title: 'Lolita Tea Party Magazine', desc: 'Graphic Design · Publication' },
+  { slug: 'among-the-lotus', title: 'Among the Lotus and the Light', desc: 'Unity game · 2025', image: '/images/lotus/home.png' },
+  { slug: 'lolita-tea-party', title: 'Lolita Tea Party Magazine', desc: 'Publication · 2025', image: '/images/tea-party/cover.jpg' },
+  { slug: 'hibikase', title: 'Hibikase Music Video', desc: 'Motion Graphics Animation · 2024', image: '/images/hibikase/home.jpg' },
 ]
 
 export default function ProjectGrid() {

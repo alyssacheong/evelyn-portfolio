@@ -1,114 +1,124 @@
 'use client'
 
-import { useCallback, useEffect, useState } from 'react'
+import { useState } from 'react'
 import Image from 'next/image'
 import type { CSSProperties } from 'react'
 import type { Project } from '@/lib/content'
+import Lightbox from './Lightbox'
 
 /* Project media + copy.
-   - If the project has a `video`, it plays full-width up top and the intro is a
-     two-column title / summary block (no hero image).
-   - Gallery images render as labelled grids (galleryGroups, `perRow` columns)
-     or a single support grid. Clicking any photo opens a lightbox that steps
-     through every image. */
+   - An optional `headerImage` banner runs full-width at the very top.
+   - Top media is a self-hosted video (`videoSrc`, with native controls or
+     autoplay+loop) or an embedded YouTube player (`youtube`). When a project
+     has both, the file plays up top and the YouTube embed sits below the copy.
+   - Projects with no top media show a two-column hero image + intro instead.
+   - Gallery images render as labelled grids (galleryGroups) or a single grid,
+     then any full-width `trailing` images. Clicking any photo opens a lightbox
+     that steps through every gallery/trailing/hero image. */
 export default function ProjectMedia({ project }: { project: Project }) {
-  const hasVideo = !!project.video
   const groups = project.galleryGroups
   const groupImages = groups?.flatMap((g) => g.images) ?? []
   const galleryImages = groups ? groupImages : project.gallery ?? []
+  const trailing = project.trailing ?? []
 
-  // the hero image is only shown (and lightbox-indexed) when there's no top video
-  const showHeroFigure = !hasVideo
-  const images = showHeroFigure ? [project.image, ...galleryImages] : galleryImages
-  const baseOffset = showHeroFigure ? 1 : 0
+  const hasVideoFile = !!project.videoSrc
+  const hasYoutube = !!project.youtube
+  const hasTopMedia = hasVideoFile || hasYoutube || !!project.headerImage
+  // primary top media is the video file if present, otherwise a YouTube embed
+  const primaryYoutube = hasYoutube && !hasVideoFile
+  // a YouTube embed shown *after* the copy (when a file plays up top)
+  const secondaryYoutube = hasYoutube && hasVideoFile
+
+  // the hero figure is only shown when there's no top media at all
+  const showHeroFigure = !hasTopMedia
+  const heroImgs = showHeroFigure ? [project.image] : []
+  const images = [...heroImgs, ...galleryImages, ...trailing]
+  const galleryBase = heroImgs.length
+  const trailingBase = heroImgs.length + galleryImages.length
 
   const [index, setIndex] = useState<number | null>(null)
-  const isOpen = index !== null
 
-  const close = useCallback(() => setIndex(null), [])
-  const step = useCallback(
-    (dir: number) =>
-      setIndex((i) => (i === null ? i : (i + dir + images.length) % images.length)),
-    [images.length],
+  const youtubeEmbed = (id: string) => (
+    <div className="project-video">
+      <iframe
+        src={`https://www.youtube-nocookie.com/embed/${id}`}
+        title={project.title}
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        allowFullScreen
+      />
+    </div>
   )
 
-  useEffect(() => {
-    if (!isOpen) return
-    const onKey = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') close()
-      else if (e.key === 'ArrowRight') step(1)
-      else if (e.key === 'ArrowLeft') step(-1)
-    }
-    window.addEventListener('keydown', onKey)
-    const prevOverflow = document.body.style.overflow
-    document.body.style.overflow = 'hidden'
-    return () => {
-      window.removeEventListener('keydown', onKey)
-      document.body.style.overflow = prevOverflow
-    }
-  }, [isOpen, close, step])
-
-  const copy = (
-    <div className="project-copy">
-      <p className="project-meta label">
-        {project.discipline} · {project.year}
-      </p>
-      <h1 className="project-title">{project.title}</h1>
-      {project.altTitle && <p className="project-alt">{project.altTitle}</p>}
-      <p className="project-summary">{project.summary}</p>
-      {project.links?.length ? (
-        <div className="project-links">
-          {project.links.map((l) => (
-            <a key={l.href} href={l.href} target="_blank" rel="noreferrer">
-              {l.label}
-            </a>
-          ))}
-        </div>
-      ) : null}
+  const head = (
+    <div className="project-head">
+      <div className="project-head-title">
+        <h1 className="project-title">
+          {project.titleLines
+            ? project.titleLines.map((line, i) => (
+                <span key={i} className="title-line">
+                  {line}
+                </span>
+              ))
+            : project.title}
+        </h1>
+        <p className="project-meta label">
+          {project.discipline} · {project.year}
+        </p>
+        {project.altTitle && <p className="project-alt">{project.altTitle}</p>}
+      </div>
+      <div className="project-head-body">
+        <p className="project-summary">{project.summary}</p>
+        {project.links?.length ? (
+          <div className="project-links">
+            {project.links.map((l) => (
+              <a key={l.href} href={l.href} target="_blank" rel="noreferrer">
+                {l.label}
+              </a>
+            ))}
+          </div>
+        ) : null}
+      </div>
     </div>
   )
 
   return (
     <>
-      {hasVideo ? (
+      {project.headerImage && (
+        <div className="project-banner">
+          <Image
+            src={project.headerImage}
+            alt={project.title}
+            fill
+            sizes="100vw"
+            className="project-banner-img"
+            priority
+          />
+        </div>
+      )}
+
+      {hasTopMedia ? (
         <>
-          <div className="project-video">
-            <iframe
-              src={`https://www.youtube-nocookie.com/embed/${project.video}`}
-              title={project.title}
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-              allowFullScreen
-            />
-          </div>
-          <div className="project-head">
-            <div className="project-head-title">
-              <h1 className="project-title">
-                {project.titleLines
-                  ? project.titleLines.map((line, i) => (
-                      <span key={i} className="title-line">
-                        {line}
-                      </span>
-                    ))
-                  : project.title}
-              </h1>
-              <p className="project-meta label">
-                {project.discipline} · {project.year}
-              </p>
-              {project.altTitle && <p className="project-alt">{project.altTitle}</p>}
+          {hasVideoFile ? (
+            <div className="project-video is-file">
+              <video
+                className="project-video-el"
+                src={project.videoSrc}
+                poster={project.videoPoster}
+                controls={project.videoControls}
+                autoPlay={!project.videoControls}
+                muted={!project.videoControls}
+                loop={!project.videoControls}
+                playsInline
+                preload="metadata"
+              />
             </div>
-            <div className="project-head-body">
-              <p className="project-summary">{project.summary}</p>
-              {project.links?.length ? (
-                <div className="project-links">
-                  {project.links.map((l) => (
-                    <a key={l.href} href={l.href} target="_blank" rel="noreferrer">
-                      {l.label}
-                    </a>
-                  ))}
-                </div>
-              ) : null}
-            </div>
-          </div>
+          ) : primaryYoutube ? (
+            youtubeEmbed(project.youtube!)
+          ) : null}
+
+          {head}
+
+          {secondaryYoutube ? youtubeEmbed(project.youtube!) : null}
         </>
       ) : (
         <div className="project-intro">
@@ -127,7 +137,23 @@ export default function ProjectMedia({ project }: { project: Project }) {
               priority
             />
           </button>
-          {copy}
+          <div className="project-copy">
+            <p className="project-meta label">
+              {project.discipline} · {project.year}
+            </p>
+            <h1 className="project-title">{project.title}</h1>
+            {project.altTitle && <p className="project-alt">{project.altTitle}</p>}
+            <p className="project-summary">{project.summary}</p>
+            {project.links?.length ? (
+              <div className="project-links">
+                {project.links.map((l) => (
+                  <a key={l.href} href={l.href} target="_blank" rel="noreferrer">
+                    {l.label}
+                  </a>
+                ))}
+              </div>
+            ) : null}
+          </div>
         </div>
       )}
 
@@ -135,7 +161,7 @@ export default function ProjectMedia({ project }: { project: Project }) {
         <div className="project-groups">
           {groups.map((g, gi) => {
             const base =
-              baseOffset +
+              galleryBase +
               groups.slice(0, gi).reduce((n, prev) => n + prev.images.length, 0)
             return (
               <section className="project-group" key={g.label || gi}>
@@ -173,7 +199,7 @@ export default function ProjectMedia({ project }: { project: Project }) {
               type="button"
               key={src}
               className="support-figure media-button"
-              onClick={() => setIndex(baseOffset + i)}
+              onClick={() => setIndex(galleryBase + i)}
               aria-label={`View ${project.title} image ${i + 1} full size`}
             >
               <Image
@@ -188,58 +214,30 @@ export default function ProjectMedia({ project }: { project: Project }) {
         </div>
       ) : null}
 
-      {isOpen && (
-        <div
-          className="lightbox"
-          role="dialog"
-          aria-modal="true"
-          aria-label={`${project.title} images`}
-          onClick={close}
-        >
-          <button type="button" className="lightbox-close" onClick={close} aria-label="Close">
-            ×
-          </button>
-          {images.length > 1 && (
+      {trailing.length ? (
+        <div className="project-trailing">
+          {trailing.map((src, i) => (
             <button
               type="button"
-              className="lightbox-nav prev"
-              onClick={(e) => {
-                e.stopPropagation()
-                step(-1)
-              }}
-              aria-label="Previous image"
+              key={src}
+              className="trailing-figure media-button"
+              onClick={() => setIndex(trailingBase + i)}
+              aria-label={`View ${project.title} image full size`}
             >
-              ‹
+              <Image
+                src={src}
+                alt={`${project.title} — image`}
+                width={project.width}
+                height={project.height}
+                sizes="100vw"
+                className="trailing-img"
+              />
             </button>
-          )}
-          <div className="lightbox-stage" onClick={(e) => e.stopPropagation()}>
-            <Image
-              src={images[index]}
-              alt={`${project.title} — image ${index + 1}`}
-              fill
-              sizes="100vw"
-              className="lightbox-img"
-              priority
-            />
-          </div>
-          {images.length > 1 && (
-            <button
-              type="button"
-              className="lightbox-nav next"
-              onClick={(e) => {
-                e.stopPropagation()
-                step(1)
-              }}
-              aria-label="Next image"
-            >
-              ›
-            </button>
-          )}
-          <span className="lightbox-count">
-            {index + 1} / {images.length}
-          </span>
+          ))}
         </div>
-      )}
+      ) : null}
+
+      <Lightbox images={images} index={index} setIndex={setIndex} title={project.title} />
     </>
   )
 }

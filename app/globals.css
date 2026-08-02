@@ -29,7 +29,9 @@
   --ink-muted: color-mix(in srgb, var(--ink) 62%, var(--paper));
   --hairline: color-mix(in srgb, var(--ink) 16%, transparent);
 
-  --font-title: 'Didot', Georgia, 'Times New Roman', serif;
+  /* real Didot where available (local @font-face + Mac/iOS system Didot),
+     with Bodoni / Playfair as graceful serif fallbacks elsewhere */
+  --font-title: 'Didot', 'Bodoni MT', 'Playfair Display', Georgia, 'Times New Roman', serif;
   --font-body: 'Acumin Pro', Georgia, 'Times New Roman', serif;
   --font-mono: 'Courier New', ui-monospace, monospace;
 
@@ -97,8 +99,9 @@ img {
   padding-left: var(--pad-x);
   padding-right: var(--pad-x);
 }
-/* home sits in a wider gutter than the rest of the site */
-.content.home {
+/* home + project pages share the same wider gutter */
+.content.home,
+.content.project {
   padding-left: clamp(2.5rem, 11vw, 11rem);
   padding-right: clamp(2.5rem, 11vw, 11rem);
 }
@@ -122,17 +125,19 @@ img {
 }
 .nav-brand {
   position: relative; /* anchor for the scattered sparkles */
-  font-family: var(--font-space-mono), ui-monospace, monospace;
-  font-size: 1.25rem;
+  font-family: var(--font-title);
+  font-size: 1.6rem;
   font-weight: 700;
-  letter-spacing: -0.02em;
-  color: var(--accent);
+  letter-spacing: 0;
   white-space: nowrap;
   overflow: visible;
 }
-.nav-brand-text {
-  position: relative;
-  z-index: 1;
+/* two-tone Didot wordmark: "Evelyn" magenta, "Tong." aubergine */
+.nav-brand-first {
+  color: var(--accent);
+}
+.nav-brand-second {
+  color: var(--ink);
 }
 .nav-links {
   display: flex;
@@ -311,12 +316,13 @@ img {
 .grid-cap-title {
   margin: 0;
   font-family: var(--font-title);
-  font-size: 1.05rem;
-  line-height: 1.2;
+  font-size: clamp(1.3rem, 1.9vw, 1.7rem);
+  line-height: 1.15;
   color: var(--ink);
 }
 .grid-cap-desc {
   margin: 0;
+  font-size: 0.82rem;
   color: color-mix(in srgb, var(--ink) 60%, var(--paper));
 }
 
@@ -479,6 +485,103 @@ img {
   transform: scale(1.03);
 }
 
+/* ---- Full-width banner at the top of a project page ------- */
+.project-banner {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1920 / 504;
+  overflow: hidden;
+  border-radius: 4px;
+  margin-bottom: clamp(1.6rem, 4vw, 2.6rem);
+  background: color-mix(in srgb, var(--ink) 8%, var(--paper));
+}
+.project-banner-img {
+  object-fit: cover;
+}
+
+/* ---- Bespoke "page plan" media stack (e.g. Fairy Picnic) --- */
+.plan-media {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(0.8rem, 1.6vw, 1.4rem);
+}
+.project-head + .plan-media {
+  margin-top: clamp(1.6rem, 4vw, 2.6rem);
+}
+/* the two mural-room photos in Fairy Picnic sit at a 1:2 width ratio, and
+   share one height (the wide right image sets it; the left fills to match) */
+.fp-2up {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: clamp(0.8rem, 1.6vw, 1.4rem);
+  align-items: stretch;
+}
+.fp-2up .group-cell:first-child {
+  aspect-ratio: auto;
+  height: 100%;
+}
+
+/* ---- Tea Party — decorative sweets strip + magazine spreads ---- */
+.tea-strip {
+  margin-top: clamp(1.6rem, 4vw, 2.6rem);
+  border-radius: 3px;
+  overflow: hidden;
+  line-height: 0;
+}
+.tea-strip-img {
+  width: 100%;
+  height: auto;
+}
+.tea-spreads {
+  margin-top: clamp(2.5rem, 6vw, 5rem);
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: clamp(0.8rem, 1.6vw, 1.4rem);
+  align-items: start;
+}
+.tea-spread {
+  overflow: hidden;
+  border-radius: 3px;
+  background: color-mix(in srgb, var(--ink) 8%, var(--paper));
+}
+.tea-spread-img {
+  width: 100%;
+  height: auto;
+  transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.tea-spread:hover .tea-spread-img,
+.tea-spread:focus-visible .tea-spread-img {
+  transform: scale(1.02);
+}
+@media (max-width: 640px) {
+  .tea-spreads {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ---- Full-width trailing image(s) below the gallery ------- */
+.project-trailing {
+  margin-top: clamp(0.8rem, 1.6vw, 1.4rem);
+  display: flex;
+  flex-direction: column;
+  gap: clamp(0.8rem, 1.6vw, 1.4rem);
+}
+.trailing-figure {
+  overflow: hidden;
+  border-radius: 3px;
+  background: color-mix(in srgb, var(--ink) 8%, var(--paper));
+}
+.trailing-img {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.trailing-figure:hover .trailing-img,
+.trailing-figure:focus-visible .trailing-img {
+  transform: scale(1.02);
+}
+
 /* ---- Video-top project layout ----------------------------- */
 .project-video {
   position: relative;
@@ -488,12 +591,20 @@ img {
   border-radius: 4px;
   background: var(--ink);
 }
-.project-video iframe {
+.project-video iframe,
+.project-video-el {
   position: absolute;
   inset: 0;
   width: 100%;
   height: 100%;
   border: 0;
+}
+.project-video-el {
+  object-fit: cover;
+}
+/* a second embedded player (e.g. the full YouTube video below the copy) */
+.project-head + .project-video {
+  margin-top: clamp(1.6rem, 4vw, 2.6rem);
 }
 /* title (left) + summary (right), below the video */
 .project-head {

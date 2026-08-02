@@ -20,7 +20,7 @@ export default function ProjectGrid() {
         if (!project) return null
         return (
           <li key={f.slug} className="grid-item">
-            <Link href={`/designs/${f.slug}?from=home`} className="grid-link">
+            <Link href={`/designs/${f.slug}`} className="grid-link">
               <Image
                 src={f.image ?? project.image}
                 alt={f.title}

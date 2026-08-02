@@ -10,7 +10,7 @@ export default function DesignsPage() {
   return (
     <div className="designs-stack">
       {projects.map((p) => (
-        <Link key={p.slug} href={`/designs/${p.slug}?from=designs`} className="design-slab">
+        <Link key={p.slug} href={`/designs/${p.slug}`} className="design-slab">
           <Image
             src={p.image}
             alt={p.title}

@@ -99,7 +99,7 @@ export const projects: Project[] = [
     discipline: 'Publication',
     caption: 'A print zine on hosting Lolita tea parties.',
     summary:
-      'This is publication is about Lolita culture, with each issue of the magazine diving into a certain part. This is aimed at aspiring young people that want to know more about the community. This specific edition is about Tea Parties. Going into topics like the history behind them, what do to at them and how to host one as well. This was inspired by Japanese gift magazines where there is a physical item sold inside the magazine. There is a sticker set where the viewer can set dress a tea party to match their concept. As a designer, this idea fits perfectly with my interests and aesthetics, so it pushed me to develop what I would call "my style".',
+      '"DRESSUP" is publication about lolita fashion culture, with each issue of the magazine diving into a certain part. Aimed at aspiring young people that want to know more about the community. This specific edition is about tea parties. Going into topics like the history behind them, what do to at them and how to host one as well. This was inspired by Japanese gift magazines where there is a physical item sold inside the magazine. There is a sticker set where the viewer can set dress a tea party to match their concept. As a designer, this idea fits perfectly with my interests and aesthetics, so it pushed me to develop what I would call "my style".',
     // thumbnail on the Works stack
     image: '/images/tea-party/works.png',
     width: 894,

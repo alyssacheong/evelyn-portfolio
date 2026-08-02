@@ -101,7 +101,7 @@ export const projects: Project[] = [
     summary:
       'This is publication is about Lolita culture, with each issue of the magazine diving into a certain part. This is aimed at aspiring young people that want to know more about the community. This specific edition is about Tea Parties. Going into topics like the history behind them, what do to at them and how to host one as well. This was inspired by Japanese gift magazines where there is a physical item sold inside the magazine. There is a sticker set where the viewer can set dress a tea party to match their concept. As a designer, this idea fits perfectly with my interests and aesthetics, so it pushed me to develop what I would call "my style".',
     // thumbnail on the Works stack
-    image: '/images/tea-party/banner.jpg',
+    image: '/images/tea-party/works.png',
     width: 894,
     height: 1072,
     // slideshow reel — autoplays + loops like the home hero (muted, no controls)
@@ -117,7 +117,7 @@ export const projects: Project[] = [
     discipline: 'Motion Graphics Animation',
     caption: 'A song cover with motion typography and 3D camera layers.',
     summary:
-      'Hibikase is a song cover for a competition called Reflective Duet Battle 2024. My roles within the team were singer, storyboard artist, outfit designer and motion graphics animator. This was animated in Adobe After Effects, it showcases motion typography, 3D camera layers and scene composition. This was a valuable leadership experience for me as it was the first time I led a creative group project, working alongside audio engineers, singers, artists and animators. It taught me how to communicate with other creatives effectively and how to share my creative vision with others. There were lots of stressful but also good moments. This project taught me how to use After Effects and it has elevated how I design with typography now.\n\nCredits — Naffan44 & Huakyuu: Art. Damon3758: Compositor. Ebotreson: 3D Background.',
+      'Hibikase is a song cover for a competition called Reflective Duet Battle 2024. My roles within the team were singer, storyboard artist, outfit designer and motion graphics animator. This was animated in Adobe After Effects, it showcases motion typography, 3D camera layers and scene composition. This was a valuable leadership experience for me as it was the first time I led a creative group project, working alongside audio engineers, singers, artists and animators. It taught me how to communicate with other creatives effectively and how to share my creative vision with others. There were lots of stressful but also good moments. This project taught me how to use After Effects and it has elevated how I design with typography now.',
     // two-character key art — used as the stack thumbnail (no page banner)
     image: '/images/hibikase/02.jpg',
     width: 960,

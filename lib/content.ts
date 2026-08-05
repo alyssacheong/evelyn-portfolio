@@ -187,6 +187,109 @@ export const projects: Project[] = [
       },
     ],
   },
+  {
+    slug: 'chinese-art-deco-lobby',
+    title: 'Chinese Art Deco Hotel Lobby',
+    year: '2024',
+    discipline: '3D Environment',
+    caption: 'A modern Chinese hotel lobby where Art Deco geometry meets Chinese pattern.',
+    summary:
+      'There is a similarity within Chinese patterns and the geometric patterns of the Art Deco movement, which created an interesting combination for the foundations of a modern Chinese hotel lobby. The brief was to design a space that clues into a narrative. To research, I visited hotels around Sydney CBD to observe what people do and how people interact with this environment. Aspects of lobbies I noticed were cafes, luggage trolleys, reception tables and seating. So I designed and modelled each of these elements and created a sequence that allows the viewer to observe these through this animation.',
+    // stack thumbnail — the golden vase (art deco 0)
+    image: '/images/chinese-art-deco-lobby/header.png',
+    width: 960,
+    height: 540,
+    // walkthrough animation — native playback + sound
+    videoSrc: '/videos/chinese-art-deco.mp4',
+    videoPoster: '/images/chinese-art-deco-lobby/poster.jpg',
+    videoControls: true,
+    galleryGroups: [
+      { label: '', perRow: 1, images: ['/images/chinese-art-deco-lobby/g1.png'] },
+      {
+        label: '',
+        perRow: 2,
+        images: [
+          '/images/chinese-art-deco-lobby/g2.png', // reception desk
+          '/images/chinese-art-deco-lobby/g3.png', // tea seating
+        ],
+      },
+      { label: '', perRow: 1, images: ['/images/chinese-art-deco-lobby/g4.png'] }, // city-view lounge
+    ],
+  },
+  {
+    slug: 'art-deco-lamp',
+    title: 'Art Deco Lamp',
+    year: '2024',
+    discipline: '3D Model',
+    caption: 'A tabletop lamp inspired by 1920s flapper silhouettes and Art Deco motifs.',
+    summary:
+      'This tabletop lamp model was inspired by the Art Deco art movement, where in the 1920s there were speakeasies, jazz music and flappers. The lampshade was designed to capture the form of the dresses that the flappers wore, creating a recognisable silhouette. Other elements of the dresses were also reflected in the design, such as transforming tassels into dangling chains and beading of the dresses translated into an embossed pattern on the glass. Inspiration was taken from the sunrise motifs and the gold and rich green colour scheme from architecture and used in the stand and accessories of the lamp.',
+    // the hero render doubles as the page banner and the stack thumbnail
+    image: '/images/art-deco-lamp/hero.jpg',
+    width: 1920,
+    height: 1080,
+    galleryGroups: [
+      {
+        // two detail renders in a setting
+        label: '',
+        perRow: 2,
+        images: ['/images/art-deco-lamp/g1.jpg', '/images/art-deco-lamp/g2.jpg'],
+      },
+      {
+        // a row of three technical drawings (transparent line art)
+        label: '',
+        perRow: 3,
+        images: [
+          '/images/art-deco-lamp/d2.png',
+          '/images/art-deco-lamp/d1.png', // the coloured drawing, centred
+          '/images/art-deco-lamp/d3.png',
+        ],
+      },
+    ],
+  },
+  {
+    slug: 'banjo-paterson-booklet',
+    title: 'Banjo Paterson Park Stamp Booklet',
+    titleLines: ['Banjo Paterson Park', 'Stamp Booklet'],
+    year: '2025',
+    discipline: 'Graphic Design',
+    caption: 'A park stamp-collecting booklet that builds into a Banjo Paterson poetry keepsake.',
+    summary:
+      'This booklet is a smaller aspect of a larger project with the aim of revitalising a park. This is a stamp booklet for an activity in the park where people can explore different areas and gain a stamp from visiting each landmark. So by the end, a beautiful poetry book is formed, inspired by Banjo Paterson’s poems and songs describing the Australian bushland. This booklet serves to encourage thought and exploration to rediscover the charms of a park by the water.',
+    // green title banner — banner at the top and the stack thumbnail
+    image: '/images/banjo-paterson-booklet/header.png',
+    width: 1950,
+    height: 932,
+    // booklet flip-through — native playback
+    videoSrc: '/videos/banjo-paterson.mp4',
+    videoPoster: '/images/banjo-paterson-booklet/booklet.png',
+    videoControls: true,
+    galleryGroups: [
+      { label: '', perRow: 1, images: ['/images/banjo-paterson-booklet/cards.png'] }, // the four stamp cards
+      { label: '', perRow: 1, images: ['/images/banjo-paterson-booklet/booklet.png'] }, // stamp + finished booklet
+    ],
+  },
+  {
+    slug: 'visual-map-of-my-practice',
+    title: 'Visual Map of My Practice',
+    year: '2026',
+    discipline: '3D Animation',
+    caption: 'A Rubik’s cube mapping my disciplines, design values and practice.',
+    summary:
+      'On this Rubik’s cube is a culmination of my design values, personal values and disciplines displayed in a way that maps my practice and design journey thus far. I found that they all interlink in all sorts of combination, which led me to think of a Rubik’s cube. I think of my design practice to be imbued with a sense of whimsy — I want to spark joy in people and I have a lot of fun playing games, so this was the perfect medium to express me. With this cube, I can show the intersection between how 3D modelling and graphic design meet.',
+    // the cube — full-bleed banner at the top and the stack thumbnail
+    image: '/images/visual-map-of-my-practice/header.png',
+    width: 3008,
+    height: 1612,
+    headerImage: '/images/visual-map-of-my-practice/header.png',
+    // silent cube animation — autoplays + loops, muted
+    videoSrc: '/videos/visual-map-of-my-practice.mp4',
+    videoPoster: '/images/visual-map-of-my-practice/header.png',
+    galleryGroups: [
+      // the "Positioning Your Practice" storyboard grid, shown whole below the copy
+      { label: '', perRow: 1, images: ['/images/visual-map-of-my-practice/grid.png'] },
+    ],
+  },
 ]
 
 export function getProject(slug: string): Project | undefined {

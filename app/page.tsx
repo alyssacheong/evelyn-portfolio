@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import { site } from '@/lib/content'
 import ProjectGrid from '@/components/ProjectGrid'
 
@@ -20,6 +21,12 @@ export default function HomePage() {
       </section>
 
       <ProjectGrid />
+
+      <div className="home-more">
+        <Link href="/designs" className="home-more-link">
+          See more works
+        </Link>
+      </div>
     </div>
   )
 }

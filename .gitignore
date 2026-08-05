@@ -44,3 +44,4 @@ mural installation photos/
 # Working drop folder for raw source video/images (~1GB) — the processed,
 # web-ready copies live in public/; never commit the originals
 new/
+new 2/

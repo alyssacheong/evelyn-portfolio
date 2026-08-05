@@ -236,6 +236,29 @@ img {
   display: block;
 }
 
+.home-more {
+  display: flex;
+  justify-content: center;
+  margin: clamp(2.5rem, 6vw, 4.5rem) 0 clamp(1rem, 3vw, 2rem);
+}
+.home-more-link {
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink);
+  padding: 0.85rem 2rem;
+  border: 1px solid var(--hairline);
+  border-radius: 999px;
+  transition: color 0.2s ease, border-color 0.2s ease, background 0.2s ease;
+}
+.home-more-link:hover,
+.home-more-link:focus-visible {
+  color: var(--paper);
+  background: var(--accent);
+  border-color: var(--accent);
+}
+
 .project-grid {
   list-style: none;
   margin: clamp(2rem, 5vw, 3.5rem) 0 0;
@@ -665,6 +688,43 @@ img {
   .group-grid {
     grid-template-columns: repeat(2, 1fr);
   }
+}
+
+/* Banjo Paterson booklet — show each image whole at its true proportions
+   (no 3/2 crop), full width and always a single column. */
+.project-banjo-paterson-booklet .group-grid {
+  grid-template-columns: 1fr;
+}
+.project-banjo-paterson-booklet .project-group:nth-of-type(1) .group-cell {
+  aspect-ratio: 2416 / 866; /* the four stamp cards, in a row */
+}
+.project-banjo-paterson-booklet .project-group:nth-of-type(2) .group-cell {
+  aspect-ratio: 1480 / 1117; /* stamp + finished booklet */
+}
+.project-banjo-paterson-booklet .group-img {
+  object-fit: contain;
+}
+
+/* Art Deco Lamp — the second group is three technical drawings (transparent
+   portrait line art); show them whole on the page rather than cropped. */
+.project-art-deco-lamp .project-group:nth-of-type(2) .group-cell {
+  aspect-ratio: 2480 / 3508;
+  background: transparent;
+}
+.project-art-deco-lamp .project-group:nth-of-type(2) .group-img {
+  object-fit: contain;
+}
+
+/* Visual Map of My Practice — the storyboard grid, shown whole and full width. */
+.project-visual-map-of-my-practice .group-grid {
+  grid-template-columns: 1fr;
+}
+.project-visual-map-of-my-practice .group-cell {
+  aspect-ratio: 1778 / 980;
+  background: transparent;
+}
+.project-visual-map-of-my-practice .group-img {
+  object-fit: contain;
 }
 
 /* ---- Lightbox --------------------------------------------- */

@@ -27,7 +27,7 @@ export default async function ProjectPage({ params }: Params) {
   if (!project) notFound()
 
   return (
-    <article className="content project">
+    <article className={`content project project-${project.slug}`}>
       {/* two-column intro + supporting images, with click-to-zoom lightbox.
           Fairy Picnic and Tea Party use bespoke layouts per their page plans. */}
       {project.slug === 'fairy-picnic' ? (

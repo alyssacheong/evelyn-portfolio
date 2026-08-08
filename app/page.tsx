@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { site } from '@/lib/content'
+import { site, home } from '@/lib/content'
 import ProjectGrid from '@/components/ProjectGrid'
 
 export default function HomePage() {
@@ -18,6 +18,21 @@ export default function HomePage() {
         >
           <source src={site.heroVideo} type="video/mp4" />
         </video>
+      </section>
+
+      {/* Pull-quote beneath the hero */}
+      <figure className="home-quote">
+        <blockquote>&ldquo;{home.quote.text}&rdquo;</blockquote>
+        <figcaption>&ndash; {home.quote.attribution}</figcaption>
+      </figure>
+
+      {/* Introduction — title/subtitle on the left, blurb on the right */}
+      <section className="home-intro">
+        <div className="home-intro-head">
+          <h2 className="home-intro-title">{home.intro.title}</h2>
+          <p className="home-intro-sub">{home.intro.subtitle}</p>
+        </div>
+        <p className="home-intro-body">{home.intro.body}</p>
       </section>
 
       <ProjectGrid />

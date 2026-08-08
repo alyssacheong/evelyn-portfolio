@@ -13,6 +13,14 @@ export default function AboutPage() {
               <p key={i}>{para}</p>
             ))}
           </div>
+          <a
+            className="about-resume"
+            href={about.resume}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Resume
+          </a>
         </div>
 
         {about.photo ? (
@@ -31,6 +39,24 @@ export default function AboutPage() {
             <span className="label">Portrait</span>
           </div>
         )}
+      </div>
+
+      <hr className="about-rule" />
+
+      <div className="about-info">
+        {about.sections.map((section) => (
+          <section key={section.title} className="about-info-row">
+            <h2 className="about-info-title">{section.title}</h2>
+            <div className="about-info-entries">
+              {section.entries.map((entry) => (
+                <div key={entry.place} className="about-info-entry">
+                  <p className="about-info-place">{entry.place}</p>
+                  <p className="about-info-detail">{entry.detail}</p>
+                </div>
+              ))}
+            </div>
+          </section>
+        ))}
       </div>
     </div>
   )

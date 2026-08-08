@@ -41,6 +41,20 @@ export const site = {
   heroVideo: '/hero.mp4',
 }
 
+export const home = {
+  // pull-quote shown beneath the hero video
+  quote: {
+    text: 'I value the wonder of design, with every small and precise detail adding to the magic that immerses and makes design feel nice.',
+    attribution: 'Evelyn Tong',
+  },
+  // short introduction section above the featured works
+  intro: {
+    title: 'Introduction',
+    subtitle: 'Who am I?',
+    body: 'I’m an Interdisciplinary designer that crosses the disciplines of Graphic Design, 3D Visualisations and Fashion together. Working across digital and physical mediums, conceptualising tailored solutions using the combination of my skills to connect to audiences best.',
+  },
+}
+
 export const about = {
   photo: '/images/about/portrait.jpg' as string | undefined,
   photoCaption: 'Evelyn Tong',
@@ -48,6 +62,32 @@ export const about = {
   body: [
     'An Interdisciplinary designer that crosses the disciplines of Graphic Design, 3D Visualisations and Fashion together. Working across digital and physical mediums, I conceptualise tailored solutions using the combination of my skills to connect to audiences best.',
     'My practice involves using 3D modelling for object designs, set designs, prototypes, games and art. Graphic design allows me to design publications, posters and typography. My studies of fashion for the past 6 years gives me the knowledge to understand clientele in the fashion industry as well as an awareness for sustainable practices, as a foundation for my main two disciplines.',
+  ],
+  // downloadable résumé (PDF lives in /public)
+  resume: '/EVELYNTONG_resume_2026.pdf',
+  // résumé sections, rendered as a two-column list below the intro
+  sections: [
+    {
+      title: 'Education',
+      entries: [
+        { place: 'University of New South Wales', detail: 'Bachelor of Design — 2024-Present' },
+        { place: 'Pymble Ladies’ College', detail: 'Highschool Certificate — 2023' },
+      ],
+    },
+    {
+      title: 'Awards and Recognition',
+      entries: [
+        { place: 'Dean’s List Certificate', detail: 'UNSW — 2025' },
+        { place: 'Student Artwork Competition', detail: 'UNSW — 2025' },
+      ],
+    },
+    {
+      title: 'Work Experience',
+      entries: [
+        { place: 'UNSW Peer Assisted Study Sessions', detail: 'PASS Leader — 2025' },
+        { place: 'CCD Styling', detail: 'Home Staging Assistant — 2024' },
+      ],
+    },
   ],
 }
 
@@ -201,7 +241,7 @@ export const projects: Project[] = [
     height: 540,
     // walkthrough animation — native playback + sound
     videoSrc: '/videos/chinese-art-deco.mp4',
-    videoPoster: '/images/chinese-art-deco-lobby/poster.jpg',
+    videoPoster: '/images/chinese-art-deco-lobby/header.png',
     videoControls: true,
     galleryGroups: [
       { label: '', perRow: 1, images: ['/images/chinese-art-deco-lobby/g1.png'] },
@@ -263,7 +303,7 @@ export const projects: Project[] = [
     // booklet flip-through — native playback
     videoSrc: '/videos/banjo-paterson.mp4',
     videoPoster: '/images/banjo-paterson-booklet/booklet.png',
-    videoControls: true,
+    // autoplays + loops, muted (no playback controls)
     galleryGroups: [
       { label: '', perRow: 1, images: ['/images/banjo-paterson-booklet/cards.png'] }, // the four stamp cards
       { label: '', perRow: 1, images: ['/images/banjo-paterson-booklet/booklet.png'] }, // stamp + finished booklet
@@ -281,7 +321,6 @@ export const projects: Project[] = [
     image: '/images/visual-map-of-my-practice/header.png',
     width: 3008,
     height: 1612,
-    headerImage: '/images/visual-map-of-my-practice/header.png',
     // silent cube animation — autoplays + loops, muted
     videoSrc: '/videos/visual-map-of-my-practice.mp4',
     videoPoster: '/images/visual-map-of-my-practice/header.png',
@@ -289,6 +328,8 @@ export const projects: Project[] = [
       // the "Positioning Your Practice" storyboard grid, shown whole below the copy
       { label: '', perRow: 1, images: ['/images/visual-map-of-my-practice/grid.png'] },
     ],
+    // the cube itself, moved down to the very bottom of the page
+    trailing: ['/images/visual-map-of-my-practice/header.png'],
   },
 ]
 

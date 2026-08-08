@@ -28,7 +28,8 @@ export default function AboutPage() {
             <Image
               src={about.photo}
               alt={about.photoCaption}
-              fill
+              width={2730}
+              height={4095}
               sizes="(max-width: 800px) 100vw, 33vw"
               className="about-photo"
             />

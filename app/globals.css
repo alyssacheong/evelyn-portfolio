@@ -904,19 +904,21 @@ img {
   max-width: 56ch;
 }
 .about-figure {
-  position: relative;
-  /* a touch taller than 3/4 so the portrait reads a teeny bit bigger */
-  aspect-ratio: 4 / 5;
+  margin: 0;
   border-radius: 3px;
   overflow: hidden;
-  background: color-mix(in srgb, var(--accent) 12%, var(--paper));
 }
 .about-figure.is-empty {
+  /* the empty-state placeholder still needs a frame to fill */
+  aspect-ratio: 4 / 5;
+  background: color-mix(in srgb, var(--accent) 12%, var(--paper));
   display: grid;
   place-items: center;
 }
+/* show the portrait at its natural proportions, scaled to the column width */
 .about-photo {
-  object-fit: cover;
+  width: 100%;
+  height: auto;
 }
 
 /* résumé download — pill button, matching the home "see more" treatment */
